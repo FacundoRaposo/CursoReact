@@ -1,9 +1,10 @@
 import React from "react";
 import {NavLink, withRouter} from "react-router-dom";
 import CartWidget from "../cart-widget/CartWidget";
+import ContainerList from '../item-list-container/ItemListContainer';
 
 export const NavBar = () => {
-    return(
+    return(<>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
             <a className="navbar-brand" href="#">Red Sport</a>
@@ -17,8 +18,15 @@ export const NavBar = () => {
             
             </div>
             <CartWidget />
+            
         </div>
         </nav>
 
-        );
+            <div className="container-fluid">
+            <ContainerList name="Red Sport" />
+            </div>
+
+
+        </>
+    );
 };
