@@ -4,7 +4,8 @@ import CartWidget from "../cart-widget/CartWidget";
 import ContainerList from '../item-list-container/ItemListContainer';
 
 export const NavBar = () => {
-    return(<>
+    return(
+    <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
             <a className="navbar-brand" href="#">Red Sport</a>
@@ -22,9 +23,7 @@ export const NavBar = () => {
         </div>
         </nav>
 
-            <div className="container-fluid">
-            <ContainerList name="Red Sport" />
-            </div>
+
 
 
         </>
