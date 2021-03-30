@@ -3,23 +3,35 @@ import './App.css';
 import {NavBar} from './components/nav-bar/nav-bar';
 import ContainerList from './components/item-list-container/ItemListContainer';
 import ItemDetailContainer from './components/item-detail-container/itemDetailContainer'
+import { BrowserRouter, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-    <div className="App">
+    <BrowserRouter>
+        <div className="App">
       <NavBar />
-    
-    </div>
-    <div className="container-fluid">
+      <switch>
+        <Route path ="/home">
+          <div>
+            <h1>Bienvenidos a la Pagina de Red Sport</h1>
+          </div>
+        </Route>
+      
+    <Route path="/category/:categoryId">
         <ContainerList name="Red Sport" />
-    </div>
-    <div className="container-fluid">
+    </Route>
+    <Route path="/item/:itemId">
     <ItemDetailContainer />
+    </Route>
+    <Route path='*'>
+            
+    </Route>
+    </switch>
     </div>
+    </BrowserRouter>
 
 
-    </>
+
   );
 }
 
