@@ -8,7 +8,7 @@ export const NavBar = () => {
     <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-            <a className="navbar-brand" href="#">Red Sport</a>
+        <Link to='/home'  className="nav-link" href="#">Red Sport</Link>
             <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item active"><Link to='/home' activeClassName="active" className="nav-link" href="#">Home<span className="sr-only"></span></Link></li>

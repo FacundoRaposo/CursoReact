@@ -18,6 +18,10 @@ export function ItemCount ({stock , initial, onAdd}){
         setCount(count - 1 );
     };
 
+    const agregar = () => {
+        onAdd(count)
+      };
+
     return(
         <div className="col-lg-3 col-md-3 col-sm-2">
             <div className="m-2 p-2 d-flex flex-row justify-content-around align-items-center">
@@ -36,6 +40,13 @@ export function ItemCount ({stock , initial, onAdd}){
                 type="button"
                 onClick={addHandle}>
                     <span><FontAwesomeIcon icon={faPlus} /></span>
+                </button>
+            </div>
+            <div>
+                <button type="button" 
+                className="btn btn-success"
+                onClick={()=> onAdd(count)}>
+                    Agregar Al carrito
                 </button>
             </div>
         </div>

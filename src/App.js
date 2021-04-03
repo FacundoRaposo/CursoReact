@@ -13,7 +13,8 @@ function App() {
       <switch>
         <Route path ="/home">
           <div>
-            <h1>Bienvenidos a la Pagina de Red Sport</h1>
+          <h1>Bienvenidos a la Pagina de Red Sport</h1>
+          <ContainerList />
           </div>
         </Route>
       
