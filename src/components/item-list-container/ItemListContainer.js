@@ -3,28 +3,26 @@ import {ItemCount} from '../item-count/ItemCount';
 import {useParams} from 'react-router-dom';
 import {products} from './products';
 import {ItemList} from '../item-list/item-list';
-
+import Loading from '../loading/loading'
 export default function ItemContainerList() {
-    const [items, setItems] = useState([])
-
+    const [items, setItems] = useState([]);
     const {categoryId} = useParams();
 
     useEffect(() => {
         const prom = new Promise((resolve,reject)=>{
             setTimeout(() => {
-
                 if (categoryId) {
-        
                   const productsFilter = products.filter((product) => {
         
                     return product.categoryId.toString() === categoryId;
+
         
                   });
         
                   resolve(productsFilter);
-        
+              
                 } else resolve(products);
-        
+         
               }, 2000);
         
             });
@@ -40,9 +38,9 @@ export default function ItemContainerList() {
     return (
 <div className="container">
     <h3>Items de la categoria {categoryId}</h3>
+    
     <ItemList items={items}/>
-    
-    
+     
     </div>
     );
 };

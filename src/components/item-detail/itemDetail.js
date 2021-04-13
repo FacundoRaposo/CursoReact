@@ -1,15 +1,29 @@
-import React, {Component, useState,useEffect} from 'react';  
+import React, {Component, useState,useEffect, useContext} from 'react';  
 import {products} from '../item-list-container/products';
 import {ItemCount} from '../item-count/ItemCount';
 import { Link,BrowserRouter, Route } from 'react-router-dom';
-
+import {CartContext } from  "../Context/CartContext"
 
 export default function ItemDetail({item}) {
         const [count, setCount] = useState(0)
-    
+        const {addItem, cart} = useContext(CartContext);
+
         const addHandler = (contador)=>{
             console.log('se agrego un item', contador)
             setCount(contador)
+        }
+
+        const terminarCompra = () =>{
+            addItem(item, count)
+        }  
+        
+        const cartCount = () =>{
+            let cant = 0;
+            let itemIdx = cart.findIndex(cartItem => cartItem.prod.id === item.id);
+            if (itemIdx !== -1){
+                cant = cart[itemIdx].cant;
+            }
+            return cant;
         }
     
         return <>
@@ -24,7 +38,7 @@ export default function ItemDetail({item}) {
                         <ItemCount stock="6" initial="2" onAdd={addHandler} />
                             :
                             <Link to='/cart'>
-                                <button>Terminar mi compra</button>
+                                <button onClick={terminarCompra}>Terminar mi compra</button>
                             </Link> 
     
                 }
