@@ -1,9 +1,8 @@
-import React, {Component, useState,useEffect} from 'react';  
-import {ItemCount} from '../item-count/ItemCount';
+import React, { useState,useEffect} from 'react';  
 import {useParams} from 'react-router-dom';
 import {products} from './products';
 import {ItemList} from '../item-list/item-list';
-import Loading from '../loading/loading'
+
 export default function ItemContainerList() {
     const [items, setItems] = useState([]);
     const {categoryId} = useParams();

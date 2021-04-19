@@ -1,7 +1,6 @@
-import React, {Component, useState,useEffect, useContext} from 'react';  
-import {products} from '../item-list-container/products';
+import React, { useState, useContext} from 'react';  
 import {ItemCount} from '../item-count/ItemCount';
-import { Link,BrowserRouter, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {CartContext } from  "../Context/CartContext"
 
 export default function ItemDetail({item}) {
@@ -14,7 +13,7 @@ export default function ItemDetail({item}) {
         }
 
         const terminarCompra = () =>{
-            addItem(item, count)
+            addItem({item}, count)
         }  
         
         const cartCount = () =>{
@@ -34,7 +33,7 @@ export default function ItemDetail({item}) {
                 <div>${item?.price}</div>
                 
                 {count}
-                { count == 0 ?
+                { count === 0 ?
                         <ItemCount stock="6" initial="2" onAdd={addHandler} />
                             :
                             <Link to='/cart'>

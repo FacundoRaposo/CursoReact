@@ -1,10 +1,12 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Link,BrowserRouter, Route } from 'react-router-dom';
-import { cartLength } from '../Context/CartContext'
+import { CartContext } from '../Context/CartContext'
 
-export default function CartWidget() {
-    return (<Link to="/cart"><span><FontAwesomeIcon icon={faShoppingCart } /></span></Link>);
-
+export const CartWidget = () => {
+    const {totalItems} = useContext(CartContext) 
+    return <>
+    {totalItems? <Link to="/cart"><span>{totalItems}<FontAwesomeIcon icon={faShoppingCart } /></span></Link>: null}
+    </>
 }
