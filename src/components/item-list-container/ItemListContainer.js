@@ -2,37 +2,29 @@ import React, { useState,useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {products} from './products';
 import {ItemList} from '../item-list/item-list';
-
+import {getFirestore} from '../../firebase/client'
 export default function ItemContainerList() {
     const [items, setItems] = useState([]);
     const {categoryId} = useParams();
 
     useEffect(() => {
-        const prom = new Promise((resolve,reject)=>{
-            setTimeout(() => {
-                if (categoryId) {
-                  const productsFilter = products.filter((product) => {
-        
-                    return product.categoryId.toString() === categoryId;
+      
 
+      const db = getFirestore();
+      const itemCollection = db.collection("items");
+      itemCollection.get().then((querySnapshot) => {
+        if(querySnapshot.size === 0) {
+          console.log('sin resultados!');
+        }
+
+      setItems(querySnapshot.docs.map(doc => doc.data()));
+      }).catch((err)=> {
+        console.log("error en la busqueda", err);
+      }).finally(() =>{
+      
+      });
         
-                  });
-        
-                  resolve(productsFilter);
-              
-                } else resolve(products);
-         
-              }, 2000);
-        
-            });
-        
-            prom.then((resultado) => {
-        
-              setItems(resultado);
-        
-            });
-        
-          }, [categoryId]);
+      }, [categoryId]);
 
     return (
 <div className="container">
