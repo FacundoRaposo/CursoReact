@@ -8,10 +8,14 @@ export default function ItemContainerList() {
     const {categoryId} = useParams();
 
     useEffect(() => {
-      
 
       const db = getFirestore();
       const itemCollection = db.collection("items");
+      const prom = itemCollection.get();
+      const itemsVestimenta = itemCollection.where('categoryId','==','Vestimenta');
+      const itemsCalzado = itemCollection.where('categoryId','==','Calzado');
+      const itemsAccesorio = itemCollection.where('categoryId','==','Vestimenta');
+      
       itemCollection.get().then((querySnapshot) => {
         if(querySnapshot.size === 0) {
           console.log('sin resultados!');

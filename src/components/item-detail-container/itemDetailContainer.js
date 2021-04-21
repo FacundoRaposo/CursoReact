@@ -3,13 +3,15 @@ import ItemDetail from '../item-detail/itemDetail';
 import {useParams} from 'react-router-dom';
 import {products} from '../item-list-container/products'
 
+import {getFirestore} from '../../firebase/client';
 
+const getItems = (id) => {
+    const db = getFirestore();
+    const itemColletion = db.collection('items')
 
-const getItems = () => {
-    return new Promise((resolve,reject)=>{
-        setTimeout(()=>{
-            resolve(products)},2000)
-})
+    const item = itemColletion.doc(id)
+
+    return item.get();
 }
 
 export default function ItemDetailContainer() {
@@ -18,23 +20,13 @@ export default function ItemDetailContainer() {
 
     useEffect(() => {
 
-        const promesa = new Promise((resolve) =>
+       getItems(itemId).then((res)=>{
+           console.log('existe?', res.exists);
+        if (res.exists){
+            setItem(res.data())
+        }})
       
-         setTimeout(() => {
-      
-          resolve(products.find((product) => product.id === parseInt(itemId)));
-      
-         }, 3000)
-      
-        );
-      
-        promesa.then((product) => {
-      
-         setItem(product);
-      
-        });
-      
-       }, []);
+       }, [itemId]);
         
 
     return <ItemDetail item={item} />
