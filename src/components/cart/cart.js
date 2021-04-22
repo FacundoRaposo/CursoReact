@@ -4,6 +4,18 @@ import {CartContext} from '../Context/CartContext';
 
 export const Cart =() =>{
     const {cart,removeItem,totalItems,totalPrice} = useContext(CartContext);
+    const generarOrden =()=> {
+        let orden = {}
+        orden.buyer = {nam:'Juan', phone: 'telefono', email:'hola@asas.com'}
+        orden.total = totalPrecio;
+        orden.items = cart.map(cartItem =>{
+            const id = cartItem.prod.item.id;
+            const title = cartItem.prod.item.title;
+            const price = cartItem.prod.item.price * cartItem.cant;
+            return {id,title, price}
+        });
+
+    }
     
     return (
         
