@@ -12,10 +12,27 @@ export default function ItemContainerList() {
       const db = getFirestore();
       const itemCollection = db.collection("items");
       const prom = itemCollection.get();
-      const itemsVestimenta = itemCollection.where('categoryId','==','Vestimenta');
-      const itemsCalzado = itemCollection.where('categoryId','==','Calzado');
-      const itemsAccesorio = itemCollection.where('categoryId','==','Vestimenta');
-      
+      let docRef;
+
+      if (categoryId) {
+
+        docRef = db.collection("items").where("categoryId", "==", categoryId);
+  
+      } else { 
+        docRef = db.collection("items"); 
+      }
+  
+      docRef.get().then((querySnapshot) => {
+  
+        if (querySnapshot.size === 0) { 
+          console.log("No existen resultados"); 
+        }
+  
+        setItems( 
+          querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))  
+        );
+  
+      });
       itemCollection.get().then((querySnapshot) => {
         if(querySnapshot.size === 0) {
           console.log('sin resultados!');
@@ -27,8 +44,7 @@ export default function ItemContainerList() {
       }).finally(() =>{
       
       });
-        
-      }, [categoryId]);
+    }, [categoryId]);
 
     return (
 <div className="container">

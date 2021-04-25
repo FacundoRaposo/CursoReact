@@ -7,7 +7,7 @@ export const Cart =() =>{
     const generarOrden =()=> {
         let orden = {}
         orden.buyer = {nam:'Juan', phone: 'telefono', email:'hola@asas.com'}
-        orden.total = totalPrecio;
+        orden.total = totalPrice;
         orden.items = cart.map(cartItem =>{
             const id = cartItem.prod.item.id;
             const title = cartItem.prod.item.title;
