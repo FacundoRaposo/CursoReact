@@ -27,7 +27,7 @@ export const Cart =() =>{
                     {cart.map(cartItem => <div key={cartItem.prod.item.id}>
                     <div>Titulo: {cartItem.prod.item.title}</div>
                     <div>Cantidad: {cartItem.cant}</div>
-                    <button onClick = {()=> removeItem(cartItem.item.id)}>borrar</button>
+                    <button onClick = {()=> removeItem(cartItem.prod.item.id)}>borrar</button>
                     </div>)}
                     <div> Total: {totalPrice}, por {totalItems} productos </div>
                     </>

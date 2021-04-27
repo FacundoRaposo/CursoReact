@@ -34,7 +34,7 @@ export const CartProvider = ({defaultValue = [] ,children})=> {
     }// agregar x cantidad de un producto
 
     const removeItem = (itemId)=>{
-        const newCart = cart.filter(e=> e.item.id !== itemId);
+        const newCart = cart.filter(e=> e.prod.item.id !== itemId);
         setCart(newCart);
 
     }// sacar un item del carrito
