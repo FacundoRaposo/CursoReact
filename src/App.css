@@ -6,7 +6,26 @@
   height: 40vmin;
   pointer-events: none;
 }
+.sumatoria{
+  display: inline-flex;
+  align-items: center;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.container-fluid img{
+  padding:50%;
+  align-items: center;
+  text-align: center;
 
+}
+
+h1,h2,h3,h4{
+  padding-top: 30px;
+
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

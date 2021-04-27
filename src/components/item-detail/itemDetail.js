@@ -26,13 +26,12 @@ export default function ItemDetail({item}) {
         }
     
         return <>
-                <div className="col-lg-4">
+                <div className="col-lg-4 center">
                 <img style={{maxWidth: '300px'}} src={item?.pictureUrl} alt=""/>
                 <h2>{item?.title}</h2>
                 <p>Descripcion : {item?.description}</p>
                 <div>${item?.price}</div>
-                
-                {count}
+                <div className="center">
                 { count === 0 ?
                         <ItemCount stock="6" initial="1" onAdd={addHandler} />
                             :
@@ -41,6 +40,8 @@ export default function ItemDetail({item}) {
                             </Link> 
     
                 }
+                </div>
+    
                 
                 </div>
       </>;

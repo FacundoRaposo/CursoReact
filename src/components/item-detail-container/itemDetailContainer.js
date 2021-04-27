@@ -32,5 +32,5 @@ export default function ItemDetailContainer() {
        }, [itemId]);
         
 
-    return <ItemDetail item={item} />
+    return <ItemDetail item={{id: itemId, ...item}} />
 }

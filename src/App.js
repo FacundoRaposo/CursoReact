@@ -6,6 +6,7 @@ import ItemDetailContainer from './components/item-detail-container/itemDetailCo
 import { BrowserRouter, Route } from 'react-router-dom';
 import { CartProvider } from './components/Context/CartContext';
 import { Cart } from './components/cart/cart';
+import {Home} from './components/home/index';
 function App() {
   return (
 
@@ -15,11 +16,10 @@ function App() {
       <NavBar />
       <switch>
         <Route path ="/home">
-          <div>
-          <h1>Bienvenidos a la Pagina de Red Sport</h1>
-          <ContainerList />
-          </div>
+
+          <Home />
         </Route>
+
       
     <Route path="/category/:categoryId">
         <ContainerList name="Red Sport" />

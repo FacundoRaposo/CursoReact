@@ -10,8 +10,6 @@ export default function ItemContainerList() {
     useEffect(() => {
 
       const db = getFirestore();
-      const itemCollection = db.collection("items");
-      const prom = itemCollection.get();
       let docRef;
 
       if (categoryId) {

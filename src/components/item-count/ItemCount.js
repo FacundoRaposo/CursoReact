@@ -23,8 +23,8 @@ export function ItemCount ({stock , initial, onAdd}){
       };
 
     return(
-        <div className="col-lg-3 col-md-3 col-sm-2">
-            <div className="m-2 p-2 d-flex flex-row justify-content-around align-items-center">
+        <div className="align-items-center">
+            <div className="sumatoria">
                 <button 
                 disabled={count<=0}
                 className="btn btn-default btn-number"
