@@ -7,9 +7,9 @@ import {getFirestore} from '../../firebase/client';
 
 const getItems = (id) => {
     const db = getFirestore();
-    const itemColletion = db.collection('items')
+    const itemsColletion = db.collection('items')
 
-    const item = itemColletion.doc(id)
+    const item = itemsColletion.doc(id)
 
     return item.get();
 }
@@ -21,9 +21,12 @@ export default function ItemDetailContainer() {
     useEffect(() => {
 
        getItems(itemId).then((res)=>{
+        console.log(res);
            console.log('existe?', res.exists);
         if (res.exists){
-            setItem(res.data())
+            console.log(res);
+            setItem({id: res.id, ...res.data()});
+            
         }})
       
        }, [itemId]);

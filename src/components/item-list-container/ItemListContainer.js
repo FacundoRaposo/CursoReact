@@ -28,21 +28,12 @@ export default function ItemContainerList() {
           console.log("No existen resultados"); 
         }
   
-        setItems( 
-          querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))  
-        );
-  
-      });
-      itemCollection.get().then((querySnapshot) => {
-        if(querySnapshot.size === 0) {
-          console.log('sin resultados!');
+        setItems(querySnapshot.docs.map(doc => { 
+          return {...doc.data(), id: doc.id }
         }
+          
+        ));
 
-      setItems(querySnapshot.docs.map(doc => doc.data()));
-      }).catch((err)=> {
-        console.log("error en la busqueda", err);
-      }).finally(() =>{
-      
       });
     }, [categoryId]);
 

@@ -6,12 +6,12 @@ export const Cart =() =>{
     const {cart,removeItem,totalItems,totalPrice} = useContext(CartContext);
     const generarOrden =()=> {
         let orden = {}
-        orden.buyer = {nam:'Juan', phone: 'telefono', email:'hola@asas.com'}
+        orden.buyer = {name:'Juan', phone: 'telefono', email:'hola@asas.com'}
         orden.total = totalPrice;
         orden.items = cart.map(cartItem =>{
-            const id = cartItem.prod.item.id;
-            const title = cartItem.prod.item.title;
-            const price = cartItem.prod.item.price * cartItem.cant;
+            const id = cartItem.item.id;
+            const title = cartItem.item.title;
+            const price = cartItem.item.price * cartItem.cant;
             return {id,title, price}
         });
 
@@ -27,7 +27,7 @@ export const Cart =() =>{
                     {cart.map(cartItem => <div key={cartItem.prod.item.id}>
                     <div>Titulo: {cartItem.prod.item.title}</div>
                     <div>Cantidad: {cartItem.cant}</div>
-                    <button onClick = {()=> removeItem(cartItem.prod.item.id)}>borrar</button>
+                    <button onClick = {()=> removeItem(cartItem.item.id)}>borrar</button>
                     </div>)}
                     <div> Total: {totalPrice}, por {totalItems} productos </div>
                     </>

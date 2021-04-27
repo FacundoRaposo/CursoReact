@@ -11,9 +11,11 @@ export const CartProvider = ({defaultValue = [] ,children})=> {
 
     useEffect (()=>{
         let cartLength =cart.reduce((accumulator, currentValue) => {return accumulator + currentValue.cant}, 0);
-       
-        let cartTotalPrice = cart.reduce((accumulator, currentValue) => { return accumulator + currentValue.cant * currentValue.prod.item.price },0);
-                console.log("cartotalprice");
+
+        let cartTotalPrice = cart.reduce((accumulator, currentValue) => { return accumulator + currentValue.cant * currentValue.prod.item.price },0)
+        ;
+
+                console.log("cartotalprice "+ cartTotalPrice);
            
         setTotalItems(cartLength);
         setTotalPrice(cartTotalPrice);

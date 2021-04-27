@@ -34,7 +34,7 @@ export default function ItemDetail({item}) {
                 
                 {count}
                 { count === 0 ?
-                        <ItemCount stock="6" initial="2" onAdd={addHandler} />
+                        <ItemCount stock="6" initial="1" onAdd={addHandler} />
                             :
                             <Link to='/cart'>
                                 <button onClick={terminarCompra}>Terminar mi compra</button>
