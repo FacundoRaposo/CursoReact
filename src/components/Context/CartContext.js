@@ -23,13 +23,13 @@ export const CartProvider = ({defaultValue = [] ,children})=> {
 
 
     const addItem = (newItem, newQuantity) => {
-        let itemIndex = cart.findIndex(item => item.prod.id === newItem.id );
+        let itemIndex = cart.findIndex(e => e.prod.item.id === newItem.id );
         if(itemIndex === -1){
             setCart (cart => [...cart, {prod: newItem, cant: newQuantity}]);
         }else{
             let modifiedCart = [...cart];
             modifiedCart[itemIndex].cant += newQuantity;
-            setCart(modifiedCart);
+            setCart(...modifiedCart);
         }
     }// agregar x cantidad de un producto
 
@@ -45,7 +45,7 @@ export const CartProvider = ({defaultValue = [] ,children})=> {
     } //sacar todos los items del carrito
 
     const isInCart = (id) =>{
-        const currentItem = cart.find(e=> e.item.id === id);
+        const currentItem = cart.find(e=> e.prod.item.id === id);
 
         return currentItem ? true : false;
     }
