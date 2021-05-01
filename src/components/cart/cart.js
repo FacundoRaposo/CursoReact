@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {CartContext} from '../Context/CartContext';
-import {getFirestore, getFirebase} from '../../firebase/client';
-
+import {getFirestore, getFirebase} from '../../firebase/client.js';
+import firebase from 'firebase/app';
 export const Cart =() =>{
 
     const {cart,removeItem,totalItems,totalPrice,clear} = useContext(CartContext);
@@ -14,59 +14,47 @@ export const Cart =() =>{
 
     const generarOrden =(e)=> {
         e.preventDefault();
-        const comprador = { name, phone, email }
+        let orden = {};
         
-        console.log(comprador)
-
         const db = getFirestore();
 
-        const ordersCollection = db.collection("orders")
+        const ordersCollection = db.collection("orders");
 
-        //const date = getFirebase().firestore.Timestamp.fromDate(new Date());
+        orden.comprador = { name, phone, email };
 
-        const items = cart.map(cartItem => {
-            return {id: cartItem.prod.item.id, title: cartItem.prod.item.title, price: cartItem.prod.item.price} 
+        orden.date = firebase.firestore.Timestamp.fromDate(new Date());
+        orden.items = cart.map(cartItem => {
+            return {id: cartItem.prod.id, title: cartItem.prod.title, price: cartItem.prod.price} 
         })
-        console.log(items);
+
+
         ordersCollection
-        .add({buyer: comprador, items , total:totalPrice })
+        .add(orden)
         .then(doc=>{
             setIdOrden(doc.id)
         })
 
 
         const itemsCollection = db.collection('items')
-        .where(getFirebase().firestore.FieldPath.documentId(), 'in', cart.map(e => e.prod.item.id))
+        .where(firebase.firestore.FieldPath.documentId(), 'in', cart.map(e => e.prod.id))
 
-        itemsCollection.get()
-        .then(resultado =>{
+        
 
-            const batch = db.batch()
+        const batch = db.batch();
 
-            for (const documento of resultado) {
-
-                const stockActual = documento.data().stock;
-
-                const itemDelCart = cart.find(cartItem => cartItem.prod.item.id == documento.id);
-
-                const cantidadComprado = itemDelCart.quantity
-
-                const nuevoStock =  stockActual - cantidadComprado;
-
-
-                batch.update(documento.ref,
-                    {stock: nuevoStock}
-                )
+        itemsCollection.get().then(collection=>{
+            collection.docs.forEach(docSnapshot =>{
+                batch.update(docSnapshot.ref,{
+                    stock: docSnapshot.data().stock - cart.find(item => item.prod.id === docSnapshot.id).cant
+                })
+            })
                 //update
                 
-            }
-
-            batch.commit()
-
-        })
-
-    }
-
+            batch.commit().then(res =>{
+                console.log('resultado batch: ', res)
+            })
+    })
+}
     const noItemComp = <h2>No hay Items en el carrito <Link to='/'>Ir al home </Link> </h2>;
 
     if(totalItems === 0) return noItemComp
@@ -74,40 +62,35 @@ export const Cart =() =>{
     return (
         
         <div>
-            {idOrden? `Orden generada: ${idOrden}`: null}
-            {cart.map(cartItem => <div key={cartItem.prod.item.id}>
+            
+           
+            
                     <table className="table">
                     
                     <thead>
                     <tr>
-                        <th scope="row"></th>
-                        <th>
-                         Titulo
-                        </th>
+                        <th>Titulo</th>
                         <th>Cantidad</th>
+                        <th>Precio</th>
                         <th></th>
                         <th></th>
                     </tr>    
                     </thead>                    
                     
                     <tbody>
-                    
-                        <tr>
-                    <th scope="row"></th>
-                        <td>
-                        {cartItem.prod.item.title}
-                        </td>
+                    {cart.map(cartItem => 
+                    <tr key={cartItem.prod.id}>
+                        <td> {cartItem.prod.title} </td>
                         <td>{cartItem.cant}</td>
-                        <td><img style={{maxWidth: '100px'}} src={cartItem?.prod.item.pictureUrl} alt=""/></td>
-                        <td><button className="btn btn-danger"onClick = {()=> removeItem(cartItem.prod.item.id)}>borrar</button></td>
-                    </tr>  
+                        <td>{cartItem.prod.price}</td>
+                        <td><img style={{maxWidth: '100px'}} src={cartItem?.prod.pictureUrl} alt=""/></td>
+                        <td><button className="btn btn-danger"onClick = {()=> removeItem(cartItem.prod.id)}>borrar</button></td>
+                    </tr>)}
                     
                     </tbody>
                     
                     </table>
-                    </div>)}
-                    
-                    
+
                    
                     <div> Total: {totalPrice}, por {totalItems} productos </div>
                     <button onClick={clear}>Borrar todo</button>
@@ -121,9 +104,10 @@ export const Cart =() =>{
 
                     <button type="submit"> Generar orden</button>
                     </form>
+                    {idOrden? `Orden generada: ${idOrden}`: null}
                     </div>
 
-                    </div>
+             </div>
 
 
     )

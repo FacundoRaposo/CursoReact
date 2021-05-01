@@ -22,9 +22,9 @@ export default function ItemDetailContainer() {
 
        getItems(itemId).then((res)=>{
         console.log(res);
-           console.log('existe?', res.exists);
+           //console.log('existe?', res.exists);
         if (res.exists){
-            console.log(res);
+            //console.log(res);
             setItem({id: res.id, ...res.data()});
             
         }})

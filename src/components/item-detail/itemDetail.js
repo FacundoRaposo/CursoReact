@@ -13,17 +13,9 @@ export default function ItemDetail({item}) {
         }
 
         const terminarCompra = () =>{
-            addItem({item}, count)
+            addItem(item, count)
         }  
-        
-        const cartCount = () =>{
-            let cant = 0;
-            let itemIdx = cart.findIndex(cartItem => cartItem.prod.id === item.id);
-            if (itemIdx !== -1){
-                cant = cart[itemIdx].cant;
-            }
-            return cant;
-        }
+
     
         return <>
                 <div className="col-lg-4 center">

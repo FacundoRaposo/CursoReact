@@ -15,5 +15,5 @@ const app = firebase.initializeApp({
   }
 
   export function getFirestore(){
-      return firebase.firestore(app);
+      return firebase.firestore(app)
   }

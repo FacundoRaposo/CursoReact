@@ -44,8 +44,9 @@ export function ItemCount ({stock , initial, onAdd}){
             </div>
             <div>
                 <button type="button" 
+                disabled={count <= 0 || count>stock}
                 className="btn btn-success"
-                onClick={()=> onAdd(count)}>
+                onClick={agregar}>
                     Agregar Al carrito
                 </button>
             </div>
