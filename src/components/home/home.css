@@ -5,13 +5,13 @@ body, html{
 
 
 .home {
-    background-image: url('https://image.freepik.com/foto-gratis/pistas-correr-estadio_53876-64707.jpg');
+    background-image: url('https://i.pinimg.com/originals/af/ca/8b/afca8b29a537e3cc7713739154ea6034.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     align-items: center;
     font-size: 5vh;
-    padding-top: 20%;
     height: 100%;
     width: 100%;
+    color: white;
 }
