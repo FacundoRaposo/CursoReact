@@ -9,7 +9,8 @@ export const Cart =() =>{
     const [name,setName] = useState('');
     const [phone,setPhone]= useState('');
     const [email,setEmail]= useState('');
-
+    const [finish, setFinish] = useState(false);
+    const[ordenGenerada, setOrden] = useState(false);
     const [idOrden,setIdOrden]= useState(null);
 
     const generarOrden =(e)=> {
@@ -55,16 +56,17 @@ export const Cart =() =>{
             })
     })
 }
+
+                
+  
+
     const noItemComp = <h2>No hay Items en el carrito <Link to='/'>Ir al home </Link> </h2>;
 
     if(totalItems === 0) return noItemComp
     
     return (
         
-        <div>
-            
-           
-            
+        <div>            
                     <table className="table">
                     
                     <thead>
@@ -86,27 +88,46 @@ export const Cart =() =>{
                         <td><img style={{maxWidth: '100px'}} src={cartItem?.prod.pictureUrl} alt=""/></td>
                         <td><button className="btn btn-danger"onClick = {()=> removeItem(cartItem.prod.id)}>borrar</button></td>
                     </tr>)}
-                    
+                    <tr>
+                        <td></td>
+                        <td>Cantidad total: {totalItems}</td>
+                        <td>Total: {totalPrice}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     </tbody>
                     
                     </table>
+                    <button onClick={clear} className='btn btn-danger'>Borrar todo</button>
+                    <Link to='/'><button  className='btn btn-info'>Seguir comprando</button></Link>
+                    <button onClick={() =>setFinish(!finish)} className='btn btn-success'>Terminar compra</button>
 
-                   
-                    <div> Total: {totalPrice}, por {totalItems} productos </div>
-                    <button onClick={clear}>Borrar todo</button>
 
+                    {finish ?
                     <div className="input-group center formulario">
+                        <h4>Datos del Comprador</h4>
                     <form  action=""  onSubmit={generarOrden}>
-
-                    <input type="text" placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}/>
-                    <input type="text" placeholder="phone"value={phone} onChange={(e)=>setPhone(e.target.value)}/>
-                    <input type="text" placeholder="email"value={email} onChange={(e)=>setEmail(e.target.value)}/>
-
-                    <button type="submit"> Generar orden</button>
-                    </form>
-                    {idOrden? `Orden generada: ${idOrden}`: null}
+                    <div className="input-group input-group-lg">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Nombre</span>
+                    <input type="text" className="form-control" placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}/>
                     </div>
 
+                    <div className="input-group input-group-lg">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Telefono</span>
+                    <input type="text" className="form-control" placeholder="phone"value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+                    </div>
+                    
+                    <div className="input-group input-group-lg">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Email</span>
+                    <input type="text" className="form-control" placeholder="email"value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    </div>
+                    
+                    
+                    <button type="submit"> Generar orden</button>
+                    </form>
+                    {idOrden? `Tu  Numero de Orden es: ${idOrden}`: null}
+                    </div>
+                    : null}
              </div>
 
 
