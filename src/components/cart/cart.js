@@ -12,6 +12,7 @@ export const Cart =() =>{
     const [finish, setFinish] = useState(false);
     const[ordenGenerada, setOrden] = useState(false);
     const [idOrden,setIdOrden]= useState(null);
+    const [carroOn, setCarro] = useState(false);
 
     const generarOrden =(e)=> {
         e.preventDefault();
@@ -103,7 +104,8 @@ export const Cart =() =>{
                     <button onClick={() =>setFinish(!finish)} className='btn btn-success'>Terminar compra</button>
 
 
-                    {finish ?
+                    {
+                    finish ? 
                     <div className="input-group center formulario">
                         <h4>Datos del Comprador</h4>
                     <form  action=""  onSubmit={generarOrden}>
@@ -125,9 +127,15 @@ export const Cart =() =>{
                     
                     <button type="submit"> Generar orden</button>
                     </form>
-                    {idOrden? `Tu  Numero de Orden es: ${idOrden}`: null}
                     </div>
-                    : null}
+                    :null
+                    }
+
+                    {
+                    idOrden? `Tu  Numero de Orden es: ${idOrden}`: null
+                    }
+                    
+                    
              </div>
 
 
