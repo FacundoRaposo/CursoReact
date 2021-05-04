@@ -63,80 +63,84 @@ export const Cart =() =>{
 
     const noItemComp = <h2>No hay Items en el carrito <Link to='/'>Ir al home </Link> </h2>;
 
-    if(totalItems === 0) return noItemComp
+    const checkoutForm =  <div className="input-group center formulario needs-validation">
+                                <h4>Datos del Comprador</h4>
+                            <form  action=""  onSubmit={generarOrden}>
+                            <div className="input-group input-group-lg">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Nombre</span>
+                            <input type="text" className="form-control" placeholder="name" value={name} onChange={(e)=>setName(e.target.value) }required/>
+                            </div>
+
+                            <div className="input-group input-group-lg">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Telefono</span>
+                            <input type="text" className="form-control" placeholder="phone"value={phone} onChange={(e)=>setPhone(e.target.value)}required/>
+                            </div>
+
+                            <div className="input-group input-group-lg">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Email</span>
+                            <input type="text" className="form-control" placeholder="email"value={email} onChange={(e)=>setEmail(e.target.value)}required/>
+                            </div>
+
+
+                            <button  className="btn btn-primary"onClick={generarOrden}> Finalizar compra</button>
+                            </form>
+                            </div>;
+
+     const vaciarCarro = {clear}
     
     return (
-        
-        <div>            
-                    <table className="table">
-                    
-                    <thead>
-                    <tr>
-                        <th>Titulo</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th></th>
-                        <th></th>
-                    </tr>    
-                    </thead>                    
-                    
-                    <tbody>
-                    {cart.map(cartItem => 
-                    <tr key={cartItem.prod.id}>
-                        <td> {cartItem.prod.title} </td>
-                        <td>{cartItem.cant}</td>
-                        <td>{cartItem.prod.price}</td>
-                        <td><img style={{maxWidth: '100px'}} src={cartItem?.prod.pictureUrl} alt=""/></td>
-                        <td><button className="btn btn-danger"onClick = {()=> removeItem(cartItem.prod.id)}>borrar</button></td>
-                    </tr>)}
-                    <tr>
-                        <td></td>
-                        <td>Cantidad total: {totalItems}</td>
-                        <td>Total: {totalPrice}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                    
-                    </table>
-                    <button onClick={clear} className='btn btn-danger'>Borrar todo</button>
-                    <Link to='/'><button  className='btn btn-info'>Seguir comprando</button></Link>
-                    <button onClick={() =>setFinish(!finish)} className='btn btn-success'>Terminar compra</button>
+        <>
+         {
+           idOrden?(<div>
+           <Link to="/" ><button className="btn btn-primary" onClick={clear}>Tu  Numero de Orden es: ${idOrden}</button></Link></div>
+            ) 
+           : 
+           (
+           <div>            
+            <table className="table">
+            
+            <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th></th>
+                <th></th>
+            </tr>    
+            </thead>                    
+            
+            <tbody>
+            {cart.map(cartItem => 
+            <tr key={cartItem.prod.id}>
+                <td> {cartItem.prod.title} </td>
+                <td>{cartItem.cant}</td>
+                <td>{cartItem.prod.price}</td>
+                <td><img style={{maxWidth: '100px'}} src={cartItem?.prod.pictureUrl} alt=""/></td>
+                <td><button className="btn btn-danger"onClick = {()=> removeItem(cartItem.prod.id)}>borrar</button></td>
+            </tr>)}
+            <tr>
+                <td></td>
+                <td>Cantidad total: {totalItems}</td>
+                <td>Total: {totalPrice}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+            
+            </table>
+            <button onClick={clear} className='btn btn-danger'>Borrar todo</button>
+            <Link to='/'><button  className='btn btn-info'>Seguir comprando</button></Link>
+            <button onClick={() =>setFinish(!finish)} className='btn btn-success'>Terminar compra</button>
 
 
-                    {
-                    finish ? 
-                    <div className="input-group center formulario">
-                        <h4>Datos del Comprador</h4>
-                    <form  action=""  onSubmit={generarOrden}>
-                    <div className="input-group input-group-lg">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Nombre</span>
-                    <input type="text" className="form-control" placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}/>
-                    </div>
-
-                    <div className="input-group input-group-lg">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Telefono</span>
-                    <input type="text" className="form-control" placeholder="phone"value={phone} onChange={(e)=>setPhone(e.target.value)}/>
-                    </div>
-                    
-                    <div className="input-group input-group-lg">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Email</span>
-                    <input type="text" className="form-control" placeholder="email"value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                    </div>
-                    
-                    
-                    <button type="submit"> Generar orden</button>
-                    </form>
-                    </div>
-                    :null
-                    }
-
-                    {
-                    idOrden? `Tu  Numero de Orden es: ${idOrden}`: null
-                    }
-                    
-                    
-             </div>
+            {
+            finish ? 
+             checkoutForm
+            :null
+            }      
+     </div>
+     )}
+    </>
 
 
     )
