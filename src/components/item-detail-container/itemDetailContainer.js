@@ -1,36 +1,31 @@
-import React, { useState,useEffect} from 'react';  
-import ItemDetail from '../item-detail/itemDetail';
-import {useParams} from 'react-router-dom';
-import {products} from '../item-list-container/products'
-
-import {getFirestore} from '../../firebase/client';
+import React, { useState, useEffect } from "react";
+import ItemDetail from "../item-detail/itemDetail";
+import { useParams } from "react-router-dom";
+import { getFirestore } from "../../firebase/client";
 
 const getItems = (id) => {
-    const db = getFirestore();
-    const itemsColletion = db.collection('items')
+  const db = getFirestore();
+  const itemsColletion = db.collection("items");
 
-    const item = itemsColletion.doc(id)
+  const item = itemsColletion.doc(id);
 
-    return item.get();
-}
+  return item.get();
+};
 
 export default function ItemDetailContainer() {
-    const [item, setItem] = useState(null)
-    const {itemId} = useParams();
+  const [item, setItem] = useState(null);
+  const { itemId } = useParams();
 
-    useEffect(() => {
+  useEffect(() => {
+    getItems(itemId).then((res) => {
+      console.log(res);
+      //console.log('existe?', res.exists);
+      if (res.exists) {
+        //console.log(res);
+        setItem({ id: res.id, ...res.data() });
+      }
+    });
+  }, [itemId]);
 
-       getItems(itemId).then((res)=>{
-        console.log(res);
-           //console.log('existe?', res.exists);
-        if (res.exists){
-            //console.log(res);
-            setItem({id: res.id, ...res.data()});
-            
-        }})
-      
-       }, [itemId]);
-        
-
-    return <ItemDetail item={{id: itemId, ...item}} />
+  return <ItemDetail item={{ id: itemId, ...item }} />;
 }

@@ -1,17 +1,7 @@
-import React,{useState}from 'react';
-import {Cart} from '../cart/cart'
+import React, { useState } from "react";
 
-export  const CheckOut = () => {
+export const CheckOut = () => {
+  const [idOrden, setIdOrden] = useState(setIdOrden);
 
-    const [idOrden,setIdOrden]= useState(setIdOrden);
-
-return(
-    <div>
-                            {
-                    idOrden? `Tu  Numero de Orden es: ${idOrden}`: null
-                    }
-    </div>
-    
-)
-
-}
+  return <div>{idOrden ? `Tu  Numero de Orden es: ${idOrden}` : null}</div>;
+};

@@ -1,17 +1,16 @@
-body, html{
-    height: 100%;
-
+body,
+html {
+  height: 100%;
 }
 
-
 .home {
-    background-image: url('https://i.pinimg.com/originals/af/ca/8b/afca8b29a537e3cc7713739154ea6034.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    align-items: center;
-    font-size: 5vh;
-    height: 100%;
-    width: 100%;
-    color: white;
+  background-image: url("https://i.pinimg.com/originals/af/ca/8b/afca8b29a537e3cc7713739154ea6034.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+  font-size: 5vh;
+  height: 100%;
+  width: 100%;
+  color: white;
 }
