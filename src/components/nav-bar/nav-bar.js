@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CartWidget } from "../cart-widget/CartWidget";
+import { getFirestore } from "../../firebase/client";
 
 export const NavBar = () => {
   return (
