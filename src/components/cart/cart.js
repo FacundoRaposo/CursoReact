@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../Context/CartContext";
 import { getFirestore } from "../../firebase/client.js";
 import firebase from "firebase/app";
+import { CheckOut } from "../checkout/checkout";
 export const Cart = () => {
   const { cart, removeItem, totalItems, totalPrice, clear } =
     useContext(CartContext);
@@ -53,23 +54,21 @@ export const Cart = () => {
       });
       //update
 
-      batch.commit().then((res) => {
-        console.log("resultado batch: ", res);
-      });
+      batch.commit();
     });
   };
 
   const noItemComp = (
     <h2>
-      No hay Items en el carrito <Link to="/">Ir al home </Link>{" "}
+      No hay Items en el carrito <Link to="/">Ir al home </Link>;
     </h2>
   );
 
   const checkoutForm = (
-    <div className="input-group center formulario needs-validation">
+    <div className="input-group center formulario">
       <h4>Datos del Comprador</h4>
-      <form action="" onSubmit={generarOrden}>
-        <div className="input-group input-group-lg">
+      <form action="" className="needs-validation" novalidate>
+        <div className="input-group-lg">
           <span className="input-group-text" id="inputGroup-sizing-default">
             Nombre
           </span>
@@ -111,8 +110,11 @@ export const Cart = () => {
           />
         </div>
 
-        <button className="btn btn-primary" onClick={generarOrden}>
-          {" "}
+        <button
+          className="btn btn-primary"
+          type="submit"
+          onClick={generarOrden}
+        >
           Finalizar compra
         </button>
       </form>
@@ -123,11 +125,7 @@ export const Cart = () => {
     <>
       {idOrden ? (
         <div>
-          <Link to="/">
-            <button className="btn btn-primary" onClick={clear}>
-              Tu Numero de Orden es: ${idOrden}
-            </button>
-          </Link>
+          <CheckOut idOrden={idOrden} />
         </div>
       ) : (
         <div>
@@ -145,7 +143,7 @@ export const Cart = () => {
             <tbody>
               {cart.map((cartItem) => (
                 <tr key={cartItem.prod.id}>
-                  <td> {cartItem.prod.title} </td>
+                  <td>{cartItem.prod.title} </td>
                   <td>{cartItem.cant}</td>
                   <td>{cartItem.prod.price}</td>
                   <td>
@@ -184,7 +182,7 @@ export const Cart = () => {
             onClick={() => setFinish(!finish)}
             className="btn btn-success"
           >
-            Terminar compra
+            Terminar Orden de compra
           </button>
 
           {finish ? checkoutForm : null}
